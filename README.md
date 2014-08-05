@@ -1,7 +1,7 @@
 IPTY
 ====
 
-[Pseudo terminal](https://en.wikipedia.org/wiki/Pseudo_terminal) extension
+Shell independent [pseudo terminal](https://en.wikipedia.org/wiki/Pseudo_terminal) extension
 
 
 ![ipty.gif](docs/ipty.gif)
