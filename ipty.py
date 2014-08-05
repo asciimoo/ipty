@@ -17,6 +17,7 @@
 
 import os
 import sys
+import re
 import pty
 import signal
 import tty
@@ -304,10 +305,30 @@ class InputCompletition():
         return True
 
 
-if __name__ == '__main__':
-    import re
+def argparser():
+    import argparse
+    argp = argparse.ArgumentParser(description='ipty - Shell independent pseudo terminal extension')
+    argp.add_argument('-c', '--completition-file'
+                     ,help      = 'Comletition file'
+                     ,metavar   = 'FILE'
+                     ,type      = argparse.FileType('r')
+                     )
+    return vars(argp.parse_args())
+
+
+def __main__():
+    args = argparser()
+    completition_list = []
+    if args['completition_file']:
+        completition_list.extend(x.rstrip('\n') for x in args['completition_file'].readlines())
     p = PTY([shell])
     p.input_modifiers.append(InputFilter(re.compile('.*(?:^|\W)(nsa\W$)', re.I), p))
-    p.input_modifiers.append(InputCompletition(('-af volume=',), p))
+    if not completition_list:
+        completition_list = [' -af volume=']
+    p.input_modifiers.append(InputCompletition(completition_list, p))
     p.input_modifiers.append(InputEval(p))
     p.run()
+
+
+if __name__ == '__main__':
+    __main__()
