@@ -25,10 +25,10 @@ import termios
 import fcntl
 import select
 import subprocess
-from code import InteractiveConsole
-from time import time
 import math
 import random
+from code import InteractiveConsole
+from time import time
 
 shell = 'sh'
 if 'SHELL' in os.environ:
