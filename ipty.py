@@ -307,7 +307,7 @@ class InputCompletition():
 if __name__ == '__main__':
     import re
     p = PTY([shell])
-    p.input_modifiers.append(InputFilter(re.compile('.*(?:^|\W)(nsa$)', re.I), p))
+    p.input_modifiers.append(InputFilter(re.compile('.*(?:^|\W)(nsa\W$)', re.I), p))
     p.input_modifiers.append(InputCompletition(('-af volume=',), p))
     p.input_modifiers.append(InputEval(p))
     p.run()
